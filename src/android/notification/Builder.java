@@ -28,9 +28,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.MessagingStyle.Message;
-import android.support.v4.media.app.NotificationCompat.MediaStyle;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationCompat.MessagingStyle.Message;
+import androidx.media.app.NotificationCompat.MediaStyle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -376,11 +376,12 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
+        PendingIntent deleteIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent deleteIntent = PendingIntent.getBroadcast(
+            deleteIntent = PendingIntent.getBroadcast(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
         } else {
-            PendingIntent deleteIntent = PendingIntent.getBroadcast(
+            deleteIntent = PendingIntent.getBroadcast(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT);
         }
 
@@ -410,11 +411,12 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
+        PendingIntent contentIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent contentIntent = PendingIntent.getService(
+            contentIntent = PendingIntent.getService(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
         } else {
-            PendingIntent contentIntent = PendingIntent.getService(
+            contentIntent = PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
         }
 
@@ -496,5 +498,4 @@ public final class Builder {
 
         return builder;
     }
-
 }

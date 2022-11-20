@@ -31,9 +31,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.util.ArraySet;
-import android.support.v4.util.Pair;
+import androidx.core.app.NotificationCompat;
+import androidx.collection.ArraySet;
+import androidx.core.util.Pair;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -49,13 +49,13 @@ import java.util.Set;
 import static android.app.AlarmManager.RTC;
 import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
-import static android.app.FLAG_IMMUTABLE;
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.M;
 import static android.os.Build.VERSION_CODES.S;
-import static android.support.v4.app.NotificationCompat.PRIORITY_HIGH;
-import static android.support.v4.app.NotificationCompat.PRIORITY_MAX;
-import static android.support.v4.app.NotificationCompat.PRIORITY_MIN;
+import static androidx.core.app.NotificationCompat.PRIORITY_HIGH;
+import static androidx.core.app.NotificationCompat.PRIORITY_MAX;
+import static androidx.core.app.NotificationCompat.PRIORITY_MIN;
 
 /**
  * Wrapper class around OS notification class. Handles basic operations
@@ -212,6 +212,7 @@ public final class Notification {
             last.putExtra(Request.EXTRA_LAST, true);
         }
 
+        PendingIntent pi;
         for (Pair<Date, Intent> pair : intents) {
             Date date     = pair.first;
             long time     = date.getTime();
@@ -221,10 +222,10 @@ public final class Notification {
                 continue;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                PendingIntent pi = PendingIntent.getBroadcast(
+                pi = PendingIntent.getBroadcast(
                         context, 0, intent, FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
             } else {
-                PendingIntent pi = PendingIntent.getBroadcast(
+                pi = PendingIntent.getBroadcast(
                         context, 0, intent, FLAG_CANCEL_CURRENT);
             }
 
@@ -309,17 +310,16 @@ public final class Notification {
         if (actions == null)
             return;
 
+        PendingIntent pi;
         for (String action : actions) {
             Intent intent = new Intent(action);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent pi = PendingIntent.getBroadcast(
-                    context, 0, intent, 0 | FLAG_IMMUTABLE);
-        } else {
-            PendingIntent pi = PendingIntent.getBroadcast(
-                    context, 0, intent, 0);
-        }
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                pi = PendingIntent.getBroadcast(
+                        context, 0, intent, 0 | FLAG_IMMUTABLE);
+            } else {
+                pi = PendingIntent.getBroadcast(
+                        context, 0, intent, 0);
+            }
             if (pi != null) {
                 getAlarmMgr().cancel(pi);
             }
@@ -501,5 +501,4 @@ public final class Notification {
     private AlarmManager getAlarmMgr () {
         return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
-
 }
