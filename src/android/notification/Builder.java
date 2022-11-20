@@ -373,8 +373,13 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
-        PendingIntent deleteIntent = PendingIntent.getBroadcast(
-                context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent deleteIntent = PendingIntent.getBroadcast(
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            PendingIntent deleteIntent = PendingIntent.getBroadcast(
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        }
 
         builder.setDeleteIntent(deleteIntent);
     }
@@ -402,8 +407,13 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
-        PendingIntent contentIntent = PendingIntent.getService(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent contentIntent = PendingIntent.getService(
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            PendingIntent contentIntent = PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        }
 
         builder.setContentIntent(contentIntent);
     }
@@ -452,8 +462,13 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
-        return PendingIntent.getService(
-                context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return PendingIntent.getService(
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            return PendingIntent.getService(
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        }
     }
 
     /**

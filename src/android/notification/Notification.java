@@ -217,8 +217,13 @@ public final class Notification {
             if (!date.after(new Date()) && trigger(intent, receiver))
                 continue;
 
-            PendingIntent pi = PendingIntent.getBroadcast(
-                    context, 0, intent, FLAG_CANCEL_CURRENT);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PendingIntent pi = PendingIntent.getBroadcast(
+                        context, 0, intent, FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            } else {
+                PendingIntent pi = PendingIntent.getBroadcast(
+                        context, 0, intent, FLAG_CANCEL_CURRENT);
+            }
 
             try {
                 switch (options.getPrio()) {
@@ -304,8 +309,13 @@ public final class Notification {
         for (String action : actions) {
             Intent intent = new Intent(action);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent pi = PendingIntent.getBroadcast(
+                    context, 0, intent, 0 | PentingIntent.FLAG_IMMUTABLE);
+        } else {
             PendingIntent pi = PendingIntent.getBroadcast(
                     context, 0, intent, 0);
+        }
 
             if (pi != null) {
                 getAlarmMgr().cancel(pi);
