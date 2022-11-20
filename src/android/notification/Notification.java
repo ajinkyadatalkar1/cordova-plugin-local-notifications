@@ -315,7 +315,7 @@ public final class Notification {
             Intent intent = new Intent(action);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                        context, 0, intent, 0 | FLAG_IMMUTABLE);
+                        context, 0, intent, 0 | FLAG_MUTABLE);
             } else {
                 pi = PendingIntent.getBroadcast(
                         context, 0, intent, 0);
