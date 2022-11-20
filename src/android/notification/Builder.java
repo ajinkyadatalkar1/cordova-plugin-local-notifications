@@ -46,6 +46,7 @@ import java.util.Random;
 import de.appplant.cordova.plugin.notification.action.Action;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.os.Build.VERSION_CODES.S;
 import static de.appplant.cordova.plugin.notification.Notification.EXTRA_UPDATE;
 
@@ -377,7 +378,7 @@ public final class Builder {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent deleteIntent = PendingIntent.getBroadcast(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
         } else {
             PendingIntent deleteIntent = PendingIntent.getBroadcast(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -411,7 +412,7 @@ public final class Builder {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent contentIntent = PendingIntent.getService(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
         } else {
             PendingIntent contentIntent = PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -466,7 +467,7 @@ public final class Builder {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             return PendingIntent.getService(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
         } else {
             return PendingIntent.getService(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT);
