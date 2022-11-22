@@ -379,7 +379,7 @@ public final class Builder {
         PendingIntent deleteIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             deleteIntent = PendingIntent.getBroadcast(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_MUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | 33554432);
         } else {
             deleteIntent = PendingIntent.getBroadcast(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -414,7 +414,7 @@ public final class Builder {
         PendingIntent contentIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             contentIntent = PendingIntent.getService(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_MUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | 33554432);
         } else {
             contentIntent = PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -469,7 +469,7 @@ public final class Builder {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             return PendingIntent.getService(
-                    context, reqCode, intent, FLAG_UPDATE_CURRENT | FLAG_MUTABLE);
+                    context, reqCode, intent, FLAG_UPDATE_CURRENT | 33554432);
         } else {
             return PendingIntent.getService(
                     context, reqCode, intent, FLAG_UPDATE_CURRENT);

@@ -223,7 +223,7 @@ public final class Notification {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                        context, 0, intent, FLAG_CANCEL_CURRENT | FLAG_MUTABLE);
+                        context, 0, intent, FLAG_CANCEL_CURRENT | 33554432);
             } else {
                 pi = PendingIntent.getBroadcast(
                         context, 0, intent, FLAG_CANCEL_CURRENT);
@@ -315,7 +315,7 @@ public final class Notification {
             Intent intent = new Intent(action);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                        context, 0, intent, 0 | FLAG_MUTABLE);
+                        context, 0, intent, 0 | 33554432);
             } else {
                 pi = PendingIntent.getBroadcast(
                         context, 0, intent, 0);
