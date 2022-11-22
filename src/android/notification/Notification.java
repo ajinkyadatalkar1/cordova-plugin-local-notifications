@@ -49,7 +49,7 @@ import java.util.Set;
 import static android.app.AlarmManager.RTC;
 import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
-import static android.app.PendingIntent.FLAG_IMMUTABLE;
+import static android.app.PendingIntent.FLAG_MUTABLE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.M;
 import static android.os.Build.VERSION_CODES.S;
@@ -223,7 +223,7 @@ public final class Notification {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                        context, 0, intent, FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+                        context, 0, intent, FLAG_CANCEL_CURRENT | FLAG_MUTABLE);
             } else {
                 pi = PendingIntent.getBroadcast(
                         context, 0, intent, FLAG_CANCEL_CURRENT);
@@ -315,7 +315,7 @@ public final class Notification {
             Intent intent = new Intent(action);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                        context, 0, intent, 0 | PendingIntent.FLAG_MUTABLE);
+                        context, 0, intent, 0 | FLAG_MUTABLE);
             } else {
                 pi = PendingIntent.getBroadcast(
                         context, 0, intent, 0);
